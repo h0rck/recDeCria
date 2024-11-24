@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# recDeCria
-=======
 # Sistema de Reconhecimento Facial
 
 Sistema de reconhecimento facial em tempo real usando Python e OpenCV. O projeto utiliza princípios SOLID e uma arquitetura limpa para facilitar manutenção e extensibilidade.
@@ -133,4 +130,3 @@ Este projeto está sob a licença MIT.
 ## 📞 Suporte
 
 Para suporte, abra uma issue no repositório.
->>>>>>> master
