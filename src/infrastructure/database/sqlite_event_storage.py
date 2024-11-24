@@ -1,4 +1,4 @@
-from src.domain.interfaces.event_storage import EventStorage
+from domain.interfaces.event_storage import EventStorage
 from .database_manager import DatabaseManager
 
 class SQLiteEventStorage(EventStorage):
