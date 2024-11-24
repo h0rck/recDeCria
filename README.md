@@ -45,58 +45,6 @@ pip install numpy
 export PYTHONPATH=$(pwd)/src:$PYTHONPATH
 ```
 
-
-## 💻 Estrutura do Projeto
-
-```
-reconhecimento_facial/
-│
-├── src/
-│   ├── domain/           # Interfaces e entidades
-│   │   ├── interfaces/   # Contratos do sistema
-│   │   └── entities/     # Entidades de domínio
-│   │
-│   ├── infrastructure/   # Implementações concretas
-│   │   └── recognition/  # Implementações OpenCV
-│   │
-│   └── presentation/     # Interface com usuário
-│       ├── cli/         # Interface de linha de comando
-│       └── camera/      # Gerenciamento de câmera
-│
-├── main.py              # Ponto de entrada
-└── README.md
-```
-
-## 🎮 Como Usar
-
-1. Execute o programa:
-```bash
-python main.py
-```
-
-2. Menu de opções:
-   - 1: Cadastrar nova pessoa
-   - 2: Iniciar reconhecimento
-   - 3: Sair
-
-### Cadastrando uma Pessoa
-
-1. Selecione opção 1
-2. Digite o nome da pessoa
-3. Pressione 'c' para capturar fotos
-4. Mova levemente o rosto entre as capturas
-5. São necessárias 30 fotos para completar o cadastro
-6. Pressione 'q' para cancelar
-
-### Reconhecimento em Tempo Real
-
-1. Selecione opção 2
-2. O sistema mostrará:
-   - Retângulo verde: Pessoa reconhecida
-   - Retângulo vermelho: Pessoa desconhecida
-   - Nome da pessoa (se reconhecida)
-3. Pressione 'q' para voltar ao menu
-
 ## 🏗️ Arquitetura
 
 O projeto segue princípios SOLID e Clean Architecture:
