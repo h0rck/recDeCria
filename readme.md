@@ -1,148 +1,161 @@
 # Sistema de Reconhecimento Facial
 
-Este é um sistema de reconhecimento facial desenvolvido em Python para monitoramento de câmeras em ambiente escolar. O sistema permite cadastrar pessoas e realizar reconhecimento facial em tempo real através de câmeras conectadas.
+Este é um sistema de reconhecimento facial em tempo real usando OpenCV. O sistema permite cadastrar pessoas e reconhecê-las através da webcam.
 
-## Pré-requisitos
+## 🚀 Funcionalidades
 
-- Python 3.8 ou superior
+- Cadastro de pessoas através da webcam
+- Captura múltiplas fotos para melhor precisão
+- Reconhecimento em tempo real
+- Indicador de confiança do reconhecimento
+- Interface via terminal
+- Persistência de dados
+
+## 📋 Pré-requisitos
+
+- Python 3.8+
+- Webcam funcional
 - Sistema operacional Linux (testado em Ubuntu/Debian)
-- Câmera conectada ao sistema
 
-## Instalação
+## 🔧 Instalação
 
-### 1. Instalar dependências do sistema
-
+1. Clone o repositório:
 ```bash
-# Instalar Python e ferramentas de desenvolvimento
-sudo apt install python3-full
-sudo apt-get update
-sudo apt-get install -y python3-dev
-sudo apt-get install -y cmake
-sudo apt-get install -y libopenblas-dev
-sudo apt-get install -y liblapack-dev 
-sudo apt-get install -y libjpeg-dev
-sudo apt-get install -y pkg-config
-sudo apt-get install -y build-essential
+git clone [url-do-repositorio]
+cd reconhecimento-facial
 ```
 
-### 2. Configurar o ambiente virtual
-
+2. Crie um ambiente virtual:
 ```bash
-# Criar pasta do projeto
-mkdir reconhecimento_facial
-cd reconhecimento_facial
-
-# Criar ambiente virtual
 python3 -m venv venv
-
-# Ativar ambiente virtual
 source venv/bin/activate
-
-# Atualizar pip
-pip install --upgrade pip
 ```
 
-### 3. Instalar bibliotecas Python
-
+3. Instale as dependências:
 ```bash
 pip install opencv-python
-pip install face-recognition
-pip install numpy
+pip install opencv-contrib-python
 ```
 
-## Estrutura do Projeto
+## 💻 Estrutura do Projeto
 
 ```
-reconhecimento_facial/
+reconhecimento-facial/
 │
-├── venv/                  # Ambiente virtual
-├── fotos/                 # Pasta para fotos de cadastro
-├── dados_faciais/         # Pasta onde serão salvos os dados
-├── banco_dados_facial.py  # Gerenciamento do banco de dados
-├── processador_imagem.py  # Processamento de imagens
-├── visualizador.py        # Interface visual
-├── sistema_reconhecimento.py  # Sistema principal
-└── exemplo_uso.py         # Exemplo de utilização
+├── src/                    # Código fonte
+│   ├── __init__.py
+│   ├── recognition/        # Módulo de reconhecimento
+│   │   ├── __init__.py
+│   │   ├── detector.py    # Detector facial
+│   │   └── recognizer.py  # Reconhecedor facial
+│   │
+│   ├── storage/           # Módulo de armazenamento
+│   │   ├── __init__.py
+│   │   └── data_manager.py
+│   │
+│   └── ui/                # Interface do usuário
+│       ├── __init__.py
+│       └── cli.py
+│
+├── data/                  # Dados salvos
+│   ├── models/           # Modelos treinados
+│   └── cadastros/        # Fotos de cadastro
+│
+├── tests/                # Testes
+│   └── __init__.py
+│
+├── requirements.txt      # Dependências
+├── README.md
+└── main.py              # Ponto de entrada
 ```
 
-## Como Usar
+## 🎮 Como Usar
 
-### 1. Ativar o ambiente virtual
-
-Sempre que for usar o sistema, primeiro ative o ambiente virtual:
-
+1. Inicie o programa:
 ```bash
-cd reconhecimento_facial
-source venv/bin/activate
+python main.py
 ```
 
-### 2. Executar o sistema
+2. Menu de opções:
+   - 1: Cadastrar nova pessoa
+   - 2: Iniciar reconhecimento
+   - 3: Sair
 
-```python
-from sistema_reconhecimento import SistemaReconhecimento
+### Cadastrando uma Pessoa
 
-# Criar uma instância do sistema
-sistema = SistemaReconhecimento()
+1. Selecione opção 1
+2. Digite o nome da pessoa
+3. Pressione 'c' para iniciar a captura
+4. Mova levemente o rosto entre as capturas
+5. Aguarde a captura das 30 fotos
 
-# Cadastrar uma nova pessoa
-sistema.cadastrar_pessoa("Nome da Pessoa", "fotos/pessoa.jpg")
+### Reconhecimento em Tempo Real
 
-# Iniciar o reconhecimento pela câmera
-sistema.iniciar_camera()
-```
+1. Selecione opção 2
+2. O sistema mostrará:
+   - Nome da pessoa reconhecida
+   - Nível de confiança
+   - Retângulo verde: Pessoa conhecida
+   - Retângulo vermelho: Desconhecido
 
-### 3. Comandos durante a execução
+## 📁 Armazenamento
 
-- Pressione 'q' para sair do modo de câmera
-- Os resultados do reconhecimento são mostrados em tempo real na tela
+- `modelo_facial.yml`: Modelo treinado
+- `nomes.pkl`: Lista de nomes cadastrados
+- Diretório `fotos_cadastro/`: Fotos de cadastro
 
-## Considerações Importantes
+## ⚙️ Configurações
 
-1. **Qualidade das fotos de cadastro:**
-   - Use fotos com boa iluminação
-   - A foto deve conter apenas uma face
-   - A face deve estar clara e bem visível
+Parâmetros configuráveis em `config.py`:
+- Número de fotos para cadastro
+- Limiar de confiança
+- Tamanho mínimo da face
+- Diretórios de dados
 
-2. **Performance:**
-   - O desempenho depende do hardware disponível
-   - Processadores mais potentes terão melhor performance
-   - A qualidade da câmera afeta a precisão do reconhecimento
+## 🔒 Segurança
 
-3. **Segurança:**
-   - Mantenha o banco de dados de faces em local seguro
-   - Implemente controle de acesso ao sistema
-   - Siga as regulamentações de privacidade (LGPD)
+- Os dados são armazenados localmente
+- As fotos são processadas em tempo real
+- Não há envio de dados para servidores externos
 
-## Solução de Problemas
+## 🛠️ Desenvolvimento
 
-### Erro ao instalar pacotes
-Se encontrar erro de "externally-managed-environment", certifique-se de:
-1. Estar usando o ambiente virtual
-2. Ter ativado o ambiente virtual corretamente
-3. Ter instalado python3-full
+Para contribuir:
 
-### Câmera não detectada
-1. Verifique se a câmera está conectada
-2. Teste a câmera com outro software
-3. Verifique as permissões do usuário
-
-### Baixa precisão no reconhecimento
-1. Melhore a iluminação do ambiente
-2. Use fotos de cadastro com melhor qualidade
-3. Ajuste a posição da câmera
-
-## Desativando o ambiente virtual
-
-Quando terminar de usar o sistema:
-
+1. Crie um fork do projeto
+2. Crie uma branch para sua feature
 ```bash
-deactivate
+git checkout -b feature/nova-feature
+```
+3. Commit suas mudanças
+```bash
+git commit -m 'Adiciona nova feature'
+```
+4. Push para a branch
+```bash
+git push origin feature/nova-feature
+```
+5. Abra um Pull Request
+
+## ✅ Testes
+
+Execute os testes:
+```bash
+python -m pytest tests/
 ```
 
-## Suporte
+## 📝 Licença
 
-Para problemas e sugestões, por favor abra uma issue no repositório do projeto.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-## Licença
+## 🤝 Suporte
 
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+Para suporte, abra uma issue no repositório ou envie um email para [seu-email].
+
+## 🔄 Atualizações Futuras
+
+- [ ] Interface gráfica
+- [ ] Suporte a múltiplas câmeras
+- [ ] Exportação de relatórios
+- [ ] Reconhecimento por vídeo
+- [ ] Integração com sistemas de controle de acesso
