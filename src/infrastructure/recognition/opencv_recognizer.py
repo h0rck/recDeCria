@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from typing import List, Tuple, Optional
-from ...domain.interfaces.face_recognizer import FaceRecognizer
+from domain.interfaces.face_recognizer import FaceRecognizer
 
 class OpenCVFaceRecognizer(FaceRecognizer):
     def __init__(self):
