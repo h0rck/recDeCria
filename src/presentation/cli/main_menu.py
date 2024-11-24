@@ -1,6 +1,7 @@
 import cv2
-from ...domain.interfaces.face_detector import FaceDetector
-from ...domain.interfaces.face_recognizer import FaceRecognizer
+from domain.interfaces.face_detector import FaceDetector
+from domain.interfaces.face_recognizer import FaceRecognizer
+from domain.interfaces.event_storage import EventStorage
 from ..camera.camera_manager import CameraManager
 
 class MainMenu:
@@ -8,11 +9,13 @@ class MainMenu:
         self,
         face_detector: FaceDetector,
         face_recognizer: FaceRecognizer,
-        camera: CameraManager
+        camera: CameraManager,
+        event_storage: EventStorage
     ):
         self.face_detector = face_detector
         self.face_recognizer = face_recognizer
         self.camera = camera
+        self.event_storage = event_storage
     
     def cadastrar_pessoa(self):
         nome = input("Digite o nome da pessoa: ")
