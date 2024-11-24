@@ -3,6 +3,7 @@ from domain.interfaces.face_detector import FaceDetector
 from domain.interfaces.face_recognizer import FaceRecognizer
 from domain.interfaces.event_storage import EventStorage
 from presentation.camera.camera_manager import CameraManager
+from presentation.cli.user_cli import UserCLI
 
 class MainMenu:
     def __init__(
@@ -10,50 +11,14 @@ class MainMenu:
         face_detector: FaceDetector,
         face_recognizer: FaceRecognizer,
         camera: CameraManager,
-        event_storage: EventStorage
+        event_storage: EventStorage,
+        user_cli = UserCLI()
     ):
         self.face_detector = face_detector
         self.face_recognizer = face_recognizer
         self.camera = camera
         self.event_storage = event_storage
-    
-    def cadastrar_pessoa(self):
-        nome = input("Digite o nome da pessoa: ")
-        print("Pressione 'c' para capturar ou 'q' para sair")
-        
-        fotos = []
-        while len(fotos) < 30:
-            frame = self.camera.capture_frame()
-            if frame is None:
-                continue
-            
-            faces = self.face_detector.detect_faces(frame)
-            
-            frame_com_faces = frame.copy()
-            for (x, y, w, h) in faces:
-                cv2.rectangle(frame_com_faces, (x, y), (x+w, y+h), (0, 255, 0), 2)
-            
-            cv2.putText(frame_com_faces, f'Fotos: {len(fotos)}/30', (10, 30),
-                       cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            
-            cv2.imshow('Cadastro', frame_com_faces)
-            
-            key = cv2.waitKey(1) & 0xFF
-            if key == ord('q'):
-                break
-            elif key == ord('c') and len(faces) == 1:
-                x, y, w, h = faces[0]
-                face_img = frame[y:y+h, x:x+w]
-                fotos.append(face_img)
-                print(f"Foto {len(fotos)} capturada!")
-        
-        cv2.destroyAllWindows()
-        
-        if len(fotos) == 30:
-            self.face_recognizer.train(fotos, nome)
-            print(f"Cadastro de {nome} realizado com sucesso!")
-        else:
-            print("Cadastro cancelado!")
+        self.user_cli = user_cli
     
     def iniciar_reconhecimento(self):
         print("Iniciando reconhecimento... Pressione 'q' para sair")
@@ -104,7 +69,7 @@ class MainMenu:
             opcao = input("Escolha uma opção: ")
             
             if opcao == '1':
-                self.cadastrar_pessoa()
+                self.user_cli.register_user()
             elif opcao == '2':
                 self.iniciar_reconhecimento()
             elif opcao == '3':
