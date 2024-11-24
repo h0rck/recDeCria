@@ -1,5 +1,5 @@
 """
-Interfaces que definem os contratos do sistema.
+Interfaces do sistema de reconhecimento facial
 """
 from .face_detector import FaceDetector
 from .face_recognizer import FaceRecognizer

@@ -1,5 +1,5 @@
 """
-Interface de linha de comando do sistema.
+Interface de linha de comando
 """
 from .main_menu import MainMenu
 

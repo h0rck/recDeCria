@@ -1,5 +1,5 @@
 """
-Implementações de reconhecimento facial usando OpenCV.
+Módulo de reconhecimento facial usando OpenCV
 """
 from .opencv_detector import OpenCVFaceDetector
 from .opencv_recognizer import OpenCVFaceRecognizer

@@ -1,5 +1,5 @@
 """
-Módulos relacionados ao gerenciamento de câmera.
+Gerenciamento de câmera
 """
 from .camera_manager import CameraManager
 
