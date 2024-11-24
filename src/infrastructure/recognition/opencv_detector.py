@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from typing import List, Tuple
-from ...domain.interfaces.face_detector import FaceDetector
+from domain.interfaces.face_detector import FaceDetector
 
 class OpenCVFaceDetector(FaceDetector):
     def __init__(self):
