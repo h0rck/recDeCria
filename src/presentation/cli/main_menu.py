@@ -1,4 +1,7 @@
 import cv2
+import cv2
+import json
+import os
 from domain.interfaces.face_detector import FaceDetector
 from domain.interfaces.face_recognizer import FaceRecognizer
 from domain.interfaces.event_storage import EventStorage
@@ -21,6 +24,25 @@ class MainMenu:
         self.user_cli = user_cli
     
     def iniciar_reconhecimento(self):
+        # Carrega os dados salvos
+        if os.path.exists('data/users.json'):
+            with open('data/users.json', 'r') as f:
+                usuarios_salvos = json.load(f)
+                
+            # Carrega as fotos e treina o reconhecedor para cada usuário
+            for nome, dados in usuarios_salvos.items():
+                fotos = []
+                for foto_path in dados['photo_paths']:
+                    caminho_completo = os.path.join('data/user_photos', foto_path)
+                    if os.path.exists(caminho_completo):
+                        foto = cv2.imread(caminho_completo)
+                        if foto is not None:
+                            fotos.append(foto)
+                
+                if fotos:
+                    self.face_recognizer.train(fotos, nome)
+                    print(f"Usuário {nome} carregado com sucesso!")
+        
         print("Iniciando reconhecimento... Pressione 'q' para sair")
         
         while True:
@@ -35,11 +57,22 @@ class MainMenu:
                 
                 nome, confianca = self.face_recognizer.predict(face_img)
                 cor = (0, 255, 0) if nome else (0, 0, 255)
-                texto = nome if nome else "Desconhecido"
+                
+                if nome and confianca < 100:  # Ajuste esse threshold conforme necessário
+                    texto = f"{nome} ({confianca:.1f}%)"
+                else:
+                    texto = "Desconhecido"
+                    cor = (0, 0, 255)
                 
                 cv2.rectangle(frame, (x, y), (x+w, y+h), cor, 2)
                 cv2.putText(frame, texto, (x, y-10),
                            cv2.FONT_HERSHEY_SIMPLEX, 0.9, cor, 2)
+            
+            # Mostra o número de usuários cadastrados
+            if 'usuarios_salvos' in locals():
+                n_usuarios = len(usuarios_salvos)
+                cv2.putText(frame, f"Usuarios cadastrados: {n_usuarios}", 
+                           (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
             
             cv2.imshow('Reconhecimento', frame)
             

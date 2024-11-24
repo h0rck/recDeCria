@@ -24,8 +24,9 @@ class UserCLI:
         
         print("Pressione 'c' para capturar ou 'q' para sair")
         photos = []
+        num_fotos_required = 30
         
-        while len(photos) < 30:
+        while len(photos) < num_fotos_required:
             frame = self.cameraManager.capture_frame()
             if frame is None:
                 continue
@@ -36,7 +37,7 @@ class UserCLI:
             for (x, y, w, h) in faces:
                 cv2.rectangle(frame_with_faces, (x, y), (x+w, y+h), (0, 255, 0), 2)
             
-            cv2.putText(frame_with_faces, f'Fotos: {len(photos)}/30', (10, 30),
+            cv2.putText(frame_with_faces, f'Fotos: {len(photos)}/{num_fotos_required}', (10, 30),
                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             
             cv2.imshow('Cadastro', frame_with_faces)
@@ -52,7 +53,7 @@ class UserCLI:
         
         cv2.destroyAllWindows()
         
-        if len(photos) == 30:
+        if len(photos) == num_fotos_required:
             user = self.user_service.create_user(name, photos)
             if user:
                 print(f"Cadastro de {name} realizado com sucesso!")
