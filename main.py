@@ -5,9 +5,6 @@ from src.presentation.camera.camera_manager import CameraManager
 from src.infrastructure.database.sqlite_event_storage import SQLiteEventStorage
 
 def main():
-    # Inicializa os componentes
-    detector = OpenCVFaceDetector()
-    recognizer = OpenCVFaceRecognizer()
     camera = CameraManager()
     event_storage = SQLiteEventStorage()
     
