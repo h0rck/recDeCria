@@ -38,6 +38,14 @@ pip install opencv-contrib-python
 pip install numpy
 ```
 
+<!-- 4 rodar isso export PYTHONPATH=$(pwd)/src:$PYTHONPATH2 se estiver no linux -->
+
+4. Configure o PYTHONPATH (necessário para Linux):
+```bash
+export PYTHONPATH=$(pwd)/src:$PYTHONPATH
+```
+
+
 ## 💻 Estrutura do Projeto
 
 ```
