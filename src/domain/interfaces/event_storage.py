@@ -12,3 +12,5 @@ class EventStorage(ABC):
     def get_latest_events(self, limit: int = 10) -> List[Dict]:
         """Retorna os últimos eventos"""
         pass
+
+  

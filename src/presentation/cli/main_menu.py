@@ -2,7 +2,7 @@ import cv2
 from domain.interfaces.face_detector import FaceDetector
 from domain.interfaces.face_recognizer import FaceRecognizer
 from domain.interfaces.event_storage import EventStorage
-from ..camera.camera_manager import CameraManager
+from presentation.camera.camera_manager import CameraManager
 
 class MainMenu:
     def __init__(
@@ -83,12 +83,23 @@ class MainMenu:
         
         cv2.destroyAllWindows()
     
+    # funcao que tras os eventos salvos no sqlite
+    def listar_eventos(self):
+        print("Listando eventos...")
+        eventos = self.event_storage.get_latest_events()
+        print("Eventos:")
+        print(eventos)
+        # for evento in eventos:
+        #     print(f"{evento}")
+
+
     def run(self):
         while True:
             print("\nSistema de Reconhecimento Facial")
             print("1 - Cadastrar nova pessoa")
             print("2 - Iniciar reconhecimento")
-            print("3 - Sair")
+            print("3 - Listar eventos")
+            print("4 - Sair")
             
             opcao = input("Escolha uma opção: ")
             
@@ -97,6 +108,8 @@ class MainMenu:
             elif opcao == '2':
                 self.iniciar_reconhecimento()
             elif opcao == '3':
+                self.listar_eventos()
+            elif opcao == '4':
                 break
             else:
                 print("Opção inválida!")
