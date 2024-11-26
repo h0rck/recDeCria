@@ -30,6 +30,10 @@ cd reconhecimento-facial
 python3 -m venv venv
 source venv/bin/activate
 ```
+Sair 
+```bash
+deactivate 
+```
 
 3. Instale as dependências:
 ```bash
